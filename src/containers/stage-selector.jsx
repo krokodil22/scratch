@@ -23,6 +23,8 @@ import {backdropLibraryContent} from '../lib/libraries/local-assets';
 import {addLocalBackdrop} from '../lib/local-asset-loader';
 import {handleFileUpload, costumeUpload} from '../lib/file-uploader.js';
 
+const backdropLibraryContent = [];
+
 const dragTypes = [
     DragConstants.COSTUME,
     DragConstants.SOUND,
@@ -90,6 +92,7 @@ class StageSelector extends React.Component {
     handleSurpriseBackdrop (e) {
         e.stopPropagation(); // Prevent click from falling through to selecting stage.
         // @todo should this not add a backdrop you already have?
+        if (backdropLibraryContent.length === 0) return;
         const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
         this.addBackdropFromLibraryItem(item, false);
     }

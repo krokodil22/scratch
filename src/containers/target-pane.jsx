@@ -24,6 +24,8 @@ import {highlightTarget} from '../reducers/targets';
 import {fetchSprite, fetchCode} from '../lib/backpack-api';
 import downloadBlob from '../lib/download-blob';
 
+const spriteLibraryContent = [];
+
 class TargetPane extends React.Component {
     constructor (props) {
         super(props);

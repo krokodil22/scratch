@@ -43,6 +43,7 @@
     opacity: 0;
 }
 .scratch-logo {
+    display: none;
     height:  1.6rem;
     vertical-align: middle;
 }

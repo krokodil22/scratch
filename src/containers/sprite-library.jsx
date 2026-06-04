@@ -9,6 +9,8 @@ import {addLocalSprite} from '../lib/local-asset-loader';
 
 import LibraryComponent from '../components/library/library.jsx';
 
+const spriteLibraryContent = [];
+
 const messages = defineMessages({
     libraryTitle: {
         defaultMessage: 'Choose a Sprite',

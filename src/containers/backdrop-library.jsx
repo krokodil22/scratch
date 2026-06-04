@@ -8,6 +8,8 @@ import {backdropLibraryContent} from '../lib/libraries/local-assets';
 import {addLocalBackdrop} from '../lib/local-asset-loader';
 import LibraryComponent from '../components/library/library.jsx';
 
+const backdropLibraryContent = [];
+
 const messages = defineMessages({
     libraryTitle: {
         defaultMessage: 'Choose a Backdrop',

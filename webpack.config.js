@@ -101,7 +101,14 @@ const distConfig = baseConfig.clone()
                 {
                     from: 'src/lib/libraries/*.json',
                     to: 'libraries',
-                    flatten: true
+                    flatten: true,
+                    globOptions: {
+                        ignore: [
+                            '**/backdrops.json',
+                            '**/sounds.json',
+                            '**/sprites.json'
+                        ]
+                    }
                 }
             ]
         })
