@@ -14,6 +14,18 @@ const USE_HEADLESS = process.env.USE_HEADLESS !== 'no';
 // The Jasmine default timeout is 30 seconds so make sure this is lower.
 const DEFAULT_TIMEOUT_MILLISECONDS = 20 * 1000;
 
+// Jest 21's error formatter uses a regexp which can overflow the JS call stack on
+// very large error strings. Keep Selenium debug payloads useful but bounded.
+const MAX_DEBUG_TEXT_LENGTH = 20 * 1000;
+
+const truncateDebugText = text => {
+    if (!text || text.length <= MAX_DEBUG_TEXT_LENGTH) {
+        return text;
+    }
+    return `${text.slice(0, MAX_DEBUG_TEXT_LENGTH)}
+... truncated ${text.length - MAX_DEBUG_TEXT_LENGTH} characters ...`;
+};
+
 /**
  * Add more debug information to an error:
  * - Merge a causal error into an outer error with valuable stack information
@@ -46,8 +58,8 @@ const enhanceError = async (outerError, cause, driver) => {
         const browserLogText = browserLogEntries.map(entry => entry.message).join('\n');
         outerError.message += `\nBrowser URL: ${url}`;
         outerError.message += `\nBrowser title: ${title}`;
-        outerError.message += `\nBrowser logs:\n*****\n${browserLogText}\n*****\n`;
-        outerError.message += `\nBrowser page source:\n*****\n${pageSource}\n*****\n`;
+        outerError.message += `\nBrowser logs:\n*****\n${truncateDebugText(browserLogText)}\n*****\n`;
+        outerError.message += `\nBrowser page source:\n*****\n${truncateDebugText(pageSource)}\n*****\n`;
     }
     return outerError;
 };
