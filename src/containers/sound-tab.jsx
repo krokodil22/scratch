@@ -17,7 +17,6 @@ import RecordModal from './record-modal.jsx';
 import SoundEditor from './sound-editor.jsx';
 import SoundLibrary from './sound-library.jsx';
 
-import soundLibraryContent from '../lib/libraries/sounds.json';
 import {handleFileUpload, soundUpload} from '../lib/file-uploader.js';
 import errorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
 import DragConstants from '../lib/drag-constants';
@@ -38,6 +37,8 @@ import {
 
 import {setRestore} from '../reducers/restore-deletion';
 import {showStandardAlert, closeAlertWithId} from '../reducers/alerts';
+
+const soundLibraryContent = [];
 
 class SoundTab extends React.Component {
     constructor (props) {
@@ -111,6 +112,7 @@ class SoundTab extends React.Component {
     }
 
     handleSurpriseSound () {
+        if (soundLibraryContent.length === 0) return;
         const soundItem = soundLibraryContent[Math.floor(Math.random() * soundLibraryContent.length)];
         const vmSound = {
             format: soundItem.dataFormat,
