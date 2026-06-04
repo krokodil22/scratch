@@ -19,8 +19,9 @@ import {getEventXY} from '../lib/touch-utils';
 
 import StageSelectorComponent from '../components/stage-selector/stage-selector.jsx';
 
-import backdropLibraryContent from '../lib/libraries/backdrops.json';
 import {handleFileUpload, costumeUpload} from '../lib/file-uploader.js';
+
+const backdropLibraryContent = [];
 
 const dragTypes = [
     DragConstants.COSTUME,
@@ -93,6 +94,7 @@ class StageSelector extends React.Component {
     handleSurpriseBackdrop (e) {
         e.stopPropagation(); // Prevent click from falling through to selecting stage.
         // @todo should this not add a backdrop you already have?
+        if (backdropLibraryContent.length === 0) return;
         const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
         this.addBackdropFromLibraryItem(item, false);
     }

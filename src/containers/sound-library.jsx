@@ -10,10 +10,11 @@ import LibraryComponent from '../components/library/library.jsx';
 import soundIcon from '../components/library-item/lib-icon--sound.svg';
 import soundIconRtl from '../components/library-item/lib-icon--sound-rtl.svg';
 
-import soundLibraryContent from '../lib/libraries/sounds.json';
 import soundTags from '../lib/libraries/sound-tags';
 
 import {connect} from 'react-redux';
+
+const soundLibraryContent = [];
 
 const messages = defineMessages({
     libraryTitle: {

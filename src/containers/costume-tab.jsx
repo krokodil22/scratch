@@ -35,7 +35,8 @@ import surpriseIcon from '../components/action-menu/icon--surprise.svg';
 import searchIcon from '../components/action-menu/icon--search.svg';
 
 import costumeLibraryContent from '../lib/libraries/costumes.json';
-import backdropLibraryContent from '../lib/libraries/backdrops.json';
+
+const backdropLibraryContent = [];
 
 let messages = defineMessages({
     addLibraryBackdropMsg: {
@@ -180,6 +181,7 @@ class CostumeTab extends React.Component {
         this.handleNewCostume(vmCostume, true /* fromCostumeLibrary */);
     }
     handleSurpriseBackdrop () {
+        if (backdropLibraryContent.length === 0) return;
         const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
         const vmCostume = {
             name: item.name,
