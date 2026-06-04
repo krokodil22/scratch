@@ -1,11 +1,5 @@
-import grisha1 from '../../../static/sprites/Grisha1.png';
-import grisha2 from '../../../static/sprites/Grisha2.png';
-import grisha3 from '../../../static/sprites/Grisha3.png';
-
-import back1 from '../../../static/backs/back1.png';
-import back2 from '../../../static/backs/back2.png';
-import back3 from '../../../static/backs/back3.png';
-import back4 from '../../../static/backs/back4.png';
+const spriteAssets = require.context('../../../static/sprites', false, /\.(bmp|gif|jpe?g|png|svg)$/i);
+const backdropAssets = require.context('../../../static/backs', false, /\.(bmp|gif|jpe?g|png|svg)$/i);
 
 const imageTypeForFile = fileName => {
     const extension = fileName.split('.')
@@ -37,21 +31,23 @@ const makeImageLibraryItem = fileName => rawURL => ({
     tags: ['local']
 });
 
+const resolveAssetURL = asset => (asset && asset.default ? asset.default : asset);
+
+const makeImageLibraryContent = (assetContext, assetFactory) => assetContext.keys()
+    .sort((first, second) => first.localeCompare(second, 'en', {
+        numeric: true,
+        sensitivity: 'base'
+    }))
+    .map(assetPath => {
+        const fileName = assetPath.replace(/^\.\//, '');
+        return assetFactory(fileName)(resolveAssetURL(assetContext(assetPath)));
+    });
+
 const spriteAsset = makeImageLibraryItem;
 const backdropAsset = makeImageLibraryItem;
 
-const spriteLibraryContent = [
-    spriteAsset('Grisha1.png')(grisha1),
-    spriteAsset('Grisha2.png')(grisha2),
-    spriteAsset('Grisha3.png')(grisha3)
-];
-
-const backdropLibraryContent = [
-    backdropAsset('back1.png')(back1),
-    backdropAsset('back2.png')(back2),
-    backdropAsset('back3.png')(back3),
-    backdropAsset('back4.png')(back4)
-];
+const spriteLibraryContent = makeImageLibraryContent(spriteAssets, spriteAsset);
+const backdropLibraryContent = makeImageLibraryContent(backdropAssets, backdropAsset);
 
 export {
     backdropLibraryContent,
