@@ -45,11 +45,14 @@ const makeImageLibraryContent = (assetContext, assetFactory) => assetContext.key
 
 const spriteAsset = makeImageLibraryItem;
 const backdropAsset = makeImageLibraryItem;
+const costumeAsset = makeImageLibraryItem;
 
 const spriteLibraryContent = makeImageLibraryContent(spriteAssets, spriteAsset);
 const backdropLibraryContent = makeImageLibraryContent(backdropAssets, backdropAsset);
+const costumeLibraryContent = makeImageLibraryContent(spriteAssets, costumeAsset);
 
 export {
     backdropLibraryContent,
+    costumeLibraryContent,
     spriteLibraryContent
 };
