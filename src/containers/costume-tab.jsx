@@ -35,8 +35,8 @@ import surpriseIcon from '../components/action-menu/icon--surprise.svg';
 import searchIcon from '../components/action-menu/icon--search.svg';
 
 import costumeLibraryContent from '../lib/libraries/costumes.json';
-
-const backdropLibraryContent = [];
+import {backdropLibraryContent} from '../lib/libraries/local-assets';
+import {addLocalBackdrop} from '../lib/local-asset-loader';
 
 let messages = defineMessages({
     addLibraryBackdropMsg: {
@@ -183,15 +183,7 @@ class CostumeTab extends React.Component {
     handleSurpriseBackdrop () {
         if (backdropLibraryContent.length === 0) return;
         const item = backdropLibraryContent[Math.floor(Math.random() * backdropLibraryContent.length)];
-        const vmCostume = {
-            name: item.name,
-            md5: item.md5ext,
-            rotationCenterX: item.rotationCenterX,
-            rotationCenterY: item.rotationCenterY,
-            bitmapResolution: item.bitmapResolution,
-            skinId: null
-        };
-        this.handleNewCostume(vmCostume);
+        addLocalBackdrop(this.props.vm, item);
     }
     handleCostumeUpload (e) {
         const storage = this.props.vm.runtime.storage;

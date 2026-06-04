@@ -4,7 +4,8 @@ import React from 'react';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'scratch-vm';
 
-import backdropTags from '../lib/libraries/backdrop-tags';
+import {backdropLibraryContent} from '../lib/libraries/local-assets';
+import {addLocalBackdrop} from '../lib/local-asset-loader';
 import LibraryComponent from '../components/library/library.jsx';
 
 const backdropLibraryContent = [];
@@ -26,22 +27,14 @@ class BackdropLibrary extends React.Component {
         ]);
     }
     handleItemSelect (item) {
-        const vmBackdrop = {
-            name: item.name,
-            rotationCenterX: item.rotationCenterX,
-            rotationCenterY: item.rotationCenterY,
-            bitmapResolution: item.bitmapResolution,
-            skinId: null
-        };
         // Do not switch to stage, just add the backdrop
-        this.props.vm.addBackdrop(item.md5ext, vmBackdrop);
+        addLocalBackdrop(this.props.vm, item);
     }
     render () {
         return (
             <LibraryComponent
                 data={backdropLibraryContent}
                 id="backdropLibrary"
-                tags={backdropTags}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}
                 onItemSelected={this.handleItemSelect}
                 onRequestClose={this.props.onRequestClose}
