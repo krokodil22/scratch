@@ -34,9 +34,8 @@ import paintIcon from '../components/action-menu/icon--paint.svg';
 import surpriseIcon from '../components/action-menu/icon--surprise.svg';
 import searchIcon from '../components/action-menu/icon--search.svg';
 
-import costumeLibraryContent from '../lib/libraries/costumes.json';
-import {backdropLibraryContent} from '../lib/libraries/local-assets';
-import {addLocalBackdrop} from '../lib/local-asset-loader';
+import {addLocalBackdrop, addLocalCostume} from '../lib/local-asset-loader';
+import {backdropLibraryContent, costumeLibraryContent} from '../lib/libraries/local-assets';
 
 let messages = defineMessages({
     addLibraryBackdropMsg: {
@@ -170,15 +169,7 @@ class CostumeTab extends React.Component {
     }
     handleSurpriseCostume () {
         const item = costumeLibraryContent[Math.floor(Math.random() * costumeLibraryContent.length)];
-        const vmCostume = {
-            name: item.name,
-            md5: item.md5ext,
-            rotationCenterX: item.rotationCenterX,
-            rotationCenterY: item.rotationCenterY,
-            bitmapResolution: item.bitmapResolution,
-            skinId: null
-        };
-        this.handleNewCostume(vmCostume, true /* fromCostumeLibrary */);
+        addLocalCostume(this.props.vm, item);
     }
     handleSurpriseBackdrop () {
         if (backdropLibraryContent.length === 0) return;

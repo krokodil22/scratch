@@ -19,6 +19,19 @@ const addLocalSprite = (vm, item) => fetchLocalAssetBuffer(item).then(buffer => 
     })
 ));
 
+const addLocalCostume = (vm, item) => fetchLocalAssetBuffer(item).then(buffer => (
+    new Promise((resolve, reject) => {
+        costumeUpload(buffer, item.fileType, vm.runtime.storage, vmCostumes => {
+            vmCostumes.forEach((costume, i) => {
+                costume.name = `${item.name}${i ? i + 1 : ''}`;
+            });
+            Promise.all(vmCostumes.map(costume => vm.addCostume(costume.md5, costume)))
+                .then(resolve)
+                .catch(reject);
+        }, reject);
+    })
+));
+
 const addLocalBackdrop = (vm, item) => fetchLocalAssetBuffer(item).then(buffer => (
     new Promise((resolve, reject) => {
         costumeUpload(buffer, item.fileType, vm.runtime.storage, vmCostumes => {
@@ -34,5 +47,6 @@ const addLocalBackdrop = (vm, item) => fetchLocalAssetBuffer(item).then(buffer =
 
 export {
     addLocalBackdrop,
+    addLocalCostume,
     addLocalSprite
 };

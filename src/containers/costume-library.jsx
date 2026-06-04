@@ -4,8 +4,8 @@ import React from 'react';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import VM from 'scratch-vm';
 
-import costumeLibraryContent from '../lib/libraries/costumes.json';
-import spriteTags from '../lib/libraries/sprite-tags';
+import {costumeLibraryContent} from '../lib/libraries/local-assets';
+import {addLocalCostume} from '../lib/local-asset-loader';
 import LibraryComponent from '../components/library/library.jsx';
 
 const messages = defineMessages({
@@ -25,21 +25,13 @@ class CostumeLibrary extends React.PureComponent {
         ]);
     }
     handleItemSelected (item) {
-        const vmCostume = {
-            name: item.name,
-            rotationCenterX: item.rotationCenterX,
-            rotationCenterY: item.rotationCenterY,
-            bitmapResolution: item.bitmapResolution,
-            skinId: null
-        };
-        this.props.vm.addCostumeFromLibrary(item.md5ext, vmCostume);
+        addLocalCostume(this.props.vm, item);
     }
     render () {
         return (
             <LibraryComponent
                 data={costumeLibraryContent}
                 id="costumeLibrary"
-                tags={spriteTags}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}
                 onItemSelected={this.handleItemSelected}
                 onRequestClose={this.props.onRequestClose}
