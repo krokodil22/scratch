@@ -23,8 +23,6 @@ import {backdropLibraryContent} from '../lib/libraries/local-assets';
 import {addLocalBackdrop} from '../lib/local-asset-loader';
 import {handleFileUpload, costumeUpload} from '../lib/file-uploader.js';
 
-const backdropLibraryContent = [];
-
 const dragTypes = [
     DragConstants.COSTUME,
     DragConstants.SOUND,

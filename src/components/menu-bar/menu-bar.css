@@ -165,7 +165,11 @@
     margin: 0 0 0 .25rem;
 }
 
-.account-nav-menu, .mystuff-button {
+.account-nav-menu {
+    display: none;
+}
+
+.mystuff-button {
     padding: 0 .25rem;
     display: flex;
     flex-direction: row;
