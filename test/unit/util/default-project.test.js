@@ -18,4 +18,12 @@ describe('defaultProject', () => {
             });
         });
     });
+
+    test('does not include a default sprite', () => {
+        const defaultProject = defaultProjectGenerator();
+        const projectData = JSON.parse(defaultProject[0].data);
+        const nonStageTargets = projectData.targets.filter(target => !target.isStage);
+
+        expect(nonStageTargets).toHaveLength(0);
+    });
 });
