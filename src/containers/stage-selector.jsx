@@ -19,7 +19,8 @@ import {getEventXY} from '../lib/touch-utils';
 
 import StageSelectorComponent from '../components/stage-selector/stage-selector.jsx';
 
-import backdropLibraryContent from '../lib/libraries/backdrops.json';
+import {backdropLibraryContent} from '../lib/libraries/local-assets';
+import {addLocalBackdrop} from '../lib/local-asset-loader';
 import {handleFileUpload, costumeUpload} from '../lib/file-uploader.js';
 
 const dragTypes = [
@@ -67,15 +68,11 @@ class StageSelector extends React.Component {
         }
     }
     addBackdropFromLibraryItem (item, shouldActivateTab = true) {
-        const vmBackdrop = {
-            name: item.name,
-            md5: item.md5ext,
-            rotationCenterX: item.rotationCenterX,
-            rotationCenterY: item.rotationCenterY,
-            bitmapResolution: item.bitmapResolution,
-            skinId: null
-        };
-        this.handleNewBackdrop(vmBackdrop, shouldActivateTab);
+        addLocalBackdrop(this.props.vm, item).then(() => {
+            if (shouldActivateTab) {
+                return this.props.onActivateTab(COSTUMES_TAB_INDEX);
+            }
+        });
     }
     handleClick () {
         this.props.onSelect(this.props.id);

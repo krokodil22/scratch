@@ -4,9 +4,8 @@ import React from 'react';
 import {injectIntl, intlShape, defineMessages} from 'react-intl';
 import VM from 'scratch-vm';
 
-import spriteLibraryContent from '../lib/libraries/sprites.json';
-import randomizeSpritePosition from '../lib/randomize-sprite-position';
-import spriteTags from '../lib/libraries/sprite-tags';
+import {spriteLibraryContent} from '../lib/libraries/local-assets';
+import {addLocalSprite} from '../lib/local-asset-loader';
 
 import LibraryComponent from '../components/library/library.jsx';
 
@@ -26,9 +25,7 @@ class SpriteLibrary extends React.PureComponent {
         ]);
     }
     handleItemSelect (item) {
-        // Randomize position of library sprite
-        randomizeSpritePosition(item);
-        this.props.vm.addSprite(JSON.stringify(item)).then(() => {
+        addLocalSprite(this.props.vm, item).then(() => {
             this.props.onActivateBlocksTab();
         });
     }
@@ -37,7 +34,6 @@ class SpriteLibrary extends React.PureComponent {
             <LibraryComponent
                 data={spriteLibraryContent}
                 id="spriteLibrary"
-                tags={spriteTags}
                 title={this.props.intl.formatMessage(messages.libraryTitle)}
                 onItemSelected={this.handleItemSelect}
                 onRequestClose={this.props.onRequestClose}
